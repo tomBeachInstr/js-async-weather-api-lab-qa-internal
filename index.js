@@ -10,10 +10,13 @@ function handleFormSubmit(event) {
 
 function fetchCurrentWeather(city) {
     console.log("== fetchCurrentWeather ==")
-    console.log("city:", city);
 
     // ======= get weather data by city name =======
   	let weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=";
+    weatherUrl += city;
+    weatherUrl += "&APPID=";
+    weatherUrl += API_KEY;
+    console.log("weatherUrl:", weatherUrl);
 
     fetch()
       .then( (resp) => {
