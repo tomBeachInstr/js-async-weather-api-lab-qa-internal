@@ -2,7 +2,7 @@ const API_KEY = "e68984af4783cdfe425e604d390fc92d";
 
 function handleFormSubmit(event) {
     console.log("== handleFormSubmit ==")
-
+    event.preventDefault();
 }
 
 function fetchCurrentWeather(city) {
