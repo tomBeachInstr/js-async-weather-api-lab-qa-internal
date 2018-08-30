@@ -5,10 +5,12 @@ function handleFormSubmit(event) {
     event.preventDefault();
     let city = document.getElementById("city").value;
     console.log("city:", city);
+    fetchCurrentWeather(city);
 }
 
 function fetchCurrentWeather(city) {
     console.log("== fetchCurrentWeather ==")
+    console.log("city:", city);
 }
 
 function displayCurrentWeather(json) {
