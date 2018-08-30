@@ -2,6 +2,7 @@ const API_KEY = "e68984af4783cdfe425e604d390fc92d";
 
 function handleFormSubmit(event) {
     console.log("== handleFormSubmit ==")
+
 }
 
 function fetchCurrentWeather(city) {
@@ -32,3 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log("-- DOMContentLoaded --")
   document.getElementById("submitBtn").addEventListener("click", handleFormSubmit)
 })
+
+
+
+
+
+// =======
