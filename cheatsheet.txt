@@ -1,0 +1,734 @@
+
+
+======= ======= ======= cheatsheet ======= ======= =======
+======= ======= ======= cheatsheet ======= ======= =======
+======= ======= ======= cheatsheet ======= ======= =======
+
+
+version: W8D1 (8/28)
+
+
+======= ======= ======= keyboard shortcuts ======= ======= =======
+======= ======= ======= variable datatypes ======= ======= =======
+======= ======= ======= variables ======= ======= =======
+======= ======= ======= variable datatype conversion ======= ======= =======
+======= ======= ======= assignment ======= ======= =======
+======= ======= ======= declaring variables ======= ======= =======
+======= ======= ======= objects ======= ======= =======
+======= ======= ======= DOM tree ======= ======= =======
+======= ======= ======= select DOM elements ======= ======= =======
+======= ======= ======= create DOM element ======= ======= =======
+======= ======= ======= modify DOM element ======= ======= =======
+======= ======= ======= strings ======= ======= =======
+======= ======= ======= comparison ======= ======= =======
+======= ======= ======= conditionality ======= ======= =======
+======= ======= ======= functions ======= ======= =======
+======= ======= ======= events ======= ======= =======
+======= ======= ======= asynchonous javascript ======= ======= =======
+
+
+
+
+======= ======= ======= keyboard shortcuts ======= ======= =======
+
+	Ctrl+Shift+J 	Chrome: open/close Javascript Console pane
+	Command+D 		Atom: select text that matches currently selected text
+
+
+======= ======= ======= variable datatypes ======= ======= =======
+
+	string
+	number
+	boolean
+	array
+	object
+	null
+	undefined
+
+
+======= ======= ======= variables ======= ======= =======
+
+== string variable ==
+	name = "Jon"
+
+== number variable ==
+	age = 24
+
+== array variables ==
+	clientList = []									empty array
+	clientList = ["Apple", "Google", "Amazon"]		array
+
+	-- get array values --
+	clientList[0]					returns the first item (index = 0)
+	=> "Apple"
+	clientList[1]					returns the second item (index = 1)
+	=> "Google"
+	clientList[2]					returns the third item (index = 2)
+	=> "Amazon"
+	clientList[3]					returns undefined (there is no item with an index of 3)
+	=> undefined
+
+	-- get array length --
+	clientList.length;				array.length is one of many built-in array properties
+	=> 3
+
+== object variable ==
+	jon = {}										empty object
+
+	== object variable properties ==
+	jon = { name: "Jon" }							object (with one property, single line)
+	jon = {											object (with one property, multi line)
+		name: "Jon"
+	}
+	jon = {											object (with three properties and one method)
+		name: "Jon",								property (note use of comma between properties)
+		age: 24,									property
+		clientList: ["Apple", "Google", "Amazon"],	property
+		initialize: function() {					method
+	        console.log("== initialize ==");
+		}											note: last property or method has NO comma
+	}
+
+	-- set or change object property value --
+	jon.age = 25									new value (25) replaces old value (24)
+
+	-- add property to object --
+	jon.occupation: "analyst"						new property (occupation) and value ("analyst")
+
+
+======= ======= ======= variable datatype conversion ======= ======= =======
+
+	x = 2;		x is a number variable
+	y = "2"		y is a string variable (even though its character is a number)
+	z = x + y	z will be a string variable (javascript coerces x into a string)
+
+
+======= ======= ======= assignment ======= ======= =======
+• javascript always evaluates the RIGHT side of the assignment operator first
+	- assignment operator (=)	"assign to" (assigns value to variable after evaluating right side)
+
+	myName = "Jon";
+	=> "Jon"
+	gameScore = 3 + 2 + 0 + 1;
+	=> 6
+
+
+======= ======= ======= declaring variables ======= ======= =======
+• rules of thumb for var, let and const
+	var: never! (this declaration allows unintentional reassignment af value and datatype)
+	let: when you know the value of a variable will change (prevents change in datatype)
+	const: for every other variable (prevents change in value and datatype)
+
+
+======= ======= ======= objects ======= ======= =======
+
+== sample object ==
+• objects have properties and methods stored as key:value pairs
+
+	const myCondo = {
+
+	    address: "1400 U St.",
+	    floor: "2",
+	    unit: "2-B",
+	    rooms: ["livingRoom", "diningRoom", "kitchen", "bedroom", "bathroom"],
+
+	    initialize: function() {
+	        console.log("== initialize ==");
+	        myCondo.makeRoomsMenu();			calls makeRoomsMenu method
+	    },
+
+	    makeRoomsMenu: function() {
+	        console.log("== makeRoomsMenu ==");
+	    }
+	}
+	myCondo.initialize();						calls initialize method (which belongs to myCondo object)
+
+
+== traversing object keys ==
+• use for...in iteration
+
+	-- javascript --
+    const address = {
+      street1: '11 Broadway',
+      street2: '2nd Floor',
+      city: 'New York',
+      state: 'NY',
+      zipCode: 10004
+    };
+
+    for (const key in address) {
+        console.log(key);
+    }
+
+	-- console output --
+    // => street1
+    // => street2
+    // => city
+    // => state
+    // => zipCode
+
+
+== traversing object values ==
+• use for...in iteration with bracket notation: (object[key])
+
+	-- javascript --
+    const address = {
+      street1: '11 Broadway',
+      street2: '2nd Floor',
+      city: 'New York',
+      state: 'NY',
+      zipCode: 10004
+    };
+
+    for (const key in address) {
+      console.log(address[key]);
+    }
+
+	-- console output --
+    // LOG: 11 Broadway
+    // LOG: 2nd Floor
+    // LOG: New York
+    // LOG: NY
+    // LOG: 10004
+
+
+
+======= ======= ======= DOM tree ======= ======= =======
+• DOM elements exist in a hierarchy
+
+	-- html --
+
+    <body>
+      <div>
+        <p>Hi!</p>
+      </div>
+
+      <div>
+        <p>Bye!</p>
+      </div>
+    </body>
+
+	-- corresponding tree --
+
+          body
+          /  \
+        div   div
+        /      \
+       p        p
+      /          \
+   "Hi!"        "Bye!"
+
+
+======= ======= ======= select DOM elements ======= ======= =======
+
+== by id ==
+
+	-- html --
+	<h1 id="mainTitle">Luxury Condos!</h1>
+
+	-- javascript --
+	let mainTitle = document.getElementById("mainTitle");
+
+
+== by class ==
+
+	-- html --
+	<nav>
+		<div class="menuItem">item1</div>
+		<div class="menuItem">item2</div>
+		<div class="menuItem">item3</div>
+	</nav>
+
+	-- javascript --
+    let menuItems = document.getElementsByClassName("menuItem");
+
+
+== by tag ==
+
+	-- html --
+	<div id="catPix">
+		<img src="Cosmo.jpg" alt="Cosmo">
+		<img src="AlleyCat.jpg" alt="AlleyCat">
+		<img src="Sebastian.jpg" alt="Sebastian">
+	</div>
+
+	-- javascript --
+    let images = document.getElementsByTagName("img");
+
+
+== by querySelector ==
+• simple example (select single element by tag)
+
+	-- html --
+	<header>
+		<h1>My Title</h1>
+	</header>
+
+	-- javascript --
+	let header = document.querySelector('header');
+
+
+• complex example (select single elements by position in tree hierarchy)
+
+	-- html --
+    <body>
+      <div>
+        <ul class="ranked-list">
+          <li>1</li>
+          <li>
+            <div>
+              <ul>
+                <li>2</li>
+              </ul>
+            </div>
+          </li>
+          <li>3</li>
+        </ul>
+      </div>
+
+      <div>
+        <ul class="unranked-list">
+          <li>6</li>
+          <li>2</li>
+          <li>
+            <div>4</div>
+          </li>
+        </ul>
+      </div>
+    </body>
+
+	-- javascript --
+    // get <li>2</li>
+    const li2 = document.querySelector('ul.ranked-list li ul li');
+
+    // get <div>4</div>
+    const div4 = document.querySelector('ul.unranked-list li div');
+
+
+======= ======= ======= create DOM element ======= ======= =======
+
+	-- html --
+	<div id="container"></div>							new element will be attached to "container"
+
+	-- javascript --
+    let divBox = document.getElementById("container");	get container element (by id) into javascript
+    let newDiv = document.createElement("div");			create new element (a div in this example)
+    divBox.appendChild(newDiv);							append (attach) new element to container
+
+
+======= ======= ======= modify DOM element ======= ======= =======
+
+	-- javascript (follows from above) --
+    newDiv.setAttribute("id", "newDiv");				assigns an id to newDiv element
+    newDiv.style.border = "2px solid purple";			sets border style
+    newDiv.style.width = "320px";						sets width
+    newDiv.style.height = "180px";						sets height
+    newDiv.style.margin = "100px 100px 0 100px";		sets margins (top/right/bottom/left)
+
+
+======= ======= ======= strings ======= ======= =======
+
+== concatenation: building messages ==
+
+	-- object variable --
+	myDog = {
+		name: "Byron",
+		breed: "poodle"
+	}
+
+	-- string variable --
+	let meetMyDog = "Hey, my name is " + myDog.name + " and I am a " + myDog.breed + ".";
+	// => "Hey, my name is Byron and I am a poodle.";
+
+== concatenation: building html structures ==
+
+	-- html --
+	<div id="myList"></div>								this element will contain the list
+
+	-- javascript --
+	let shoppingList = ["milk", "blueberries", "cat treats", "corn", "beer"];
+
+	let listHtml = "<ul>";								initialize with opening unordered list tag
+    for (let i = 0; i < shoppingList.length; i++) {		loop through array
+    	listHtml += "<li>" + shoppingList[i] + "</li>";	use "+=" to add string characters to listHtml
+    }
+    listHtml += "</ul>";								add closing unordered list tag
+
+	let myList = document.getElementById("myList");		get container element
+	myList.appendChild(listHtml);						append listHtml to container element
+
+	-- html (result) --
+	<div id="myList">
+		<ul>											elements from listHtml as appended to DOM
+			<li>milk</li>
+			<li>blueberries</li>
+			<li>cat treats</li>
+			<li>corn</li>
+			<li>beer</li>
+		</ul>
+	</div>
+
+
+======= ======= ======= comparison ======= ======= =======
+• these are used in conditional statements
+	- equality operator (==)	"compare value" (performs type conversion before making comparison)
+	- identity operator (===)	"compare value and type" (no type conversion; types must also be equal;
+	- loose inequality operator (!=)	results in TRUE if not equal (after type conversion)
+	- strict inequality operator (!==)	results in TRUE if not equal (no type conversion)
+
+• javascript can determine if a statement is true or false
+
+	1 < 3  				//=> true
+	1 = 3  				//=> false
+	3 == 3 				//=> true
+	3 = 4  				//=> false
+	3 != 4 				//=> true
+	5 > 2  				//=> true
+	pi == 3.14 			//=> true
+
+
+======= ======= ======= conditionality ======= ======= =======
+
+== if...else if...else ==
+    if (name === "Jon") {                   use strict equality operator (NOT "="!!!)
+    	registerUser();
+    }
+
+    if (age > 21) {                         single condition (age > 21)
+    	offerBeer();
+    }
+
+    if (age > 21) {                         single condition, two outcomes
+    	offerBeer();
+    } else {
+    	offerCoke();
+    }
+
+    if ((age > 21) && (age < 65)) {         two conditions, three outcomes
+    	offerBeer();
+    } else if (age > 65) {
+    	offerMetamucil();
+    } else {
+    	offerWater();
+    }
+
+== AND ==
+    if ((age > 21) && (age < 65)) {         both conditions must be true
+    	offerBeer();
+    } else {
+    	offerCoke();
+    }
+
+== OR ==
+    if ((age > 21) || (name == "Joe")) {   	either condition can be true
+    	offerBeer();                        Joe gets a beer even if he is under 21
+    } else {
+    	offerCoke();                        everyone under 21 except Joe gets Coke
+    }
+
+== ternary operator ==
+    let userStatus = "member";
+    let adminAccess = (userStatus === "admin")		checks if userStatus equals "admin"
+        ? "approved"        result if the user is an administrator (test is true)
+        : "denied"          result if the user is NOT an administrator (test is false)
+    => "denied"				since (userStatus === "admin") is false, ternary returns "denied"
+
+== switch statement ==
+	• general switch syntax:
+
+		switch (expression) {
+		  case value1:
+		    // Statements
+		    break;
+		  case value2:
+		    // Statements
+		    break;
+		  default:
+		    // Statements
+		    break;
+		}
+
+	• example:
+		const hunger = 'famished';
+		let food;
+
+		switch (hunger) {
+		  case 'light':
+		    food = 'grapes';
+		    break;
+		  case 'moderate':
+		    food = 'sushi';
+		    break;
+		  case 'famished':
+		    food = 'lasagna';
+		    break;
+		}
+
+		food;
+		// => "lasagna"
+
+
+======= ======= ======= functions ======= ======= =======
+
+== named function ==
+	function getMemberDetail() {
+		console.log("== getMemberDetail ==");
+	}
+	getMemberDetail();
+
+== function expression ==
+	let memberDetails = function() {
+		console.log("== memberDetails ==");
+	}
+	memberDetails();
+
+== passing a variable to a function ==
+	function listDoggieNames(dogName) {
+		console.log("== listDoggieNames ==");
+		let doggieHtml = "<p>" + dogName + "</p>";
+		console.log(doggieHtml);
+	}
+	listDoggieNames("Jake");
+	listDoggieNames("Buster");
+	listDoggieNames("Mumford");
+
+	-- result --
+	<p>Jake</p>
+	<p>Buster</p>
+	<p>Mumford</p>
+
+
+======= ======= ======= loops ======= ======= =======
+• a for loops traverses an array forwards or backwards
+• the main structure of the loop is: (startIndex; endIndex; increment)
+
+		let loopArray = ["Joe", "Jon", "Jim", "Jill", "Jane"];
+		function forLoopFunction(array) {
+		    console.log("== forLoopFunction ==");
+
+			  // == forwards (array beginning to end)
+		    for (let i = 0; i < array.length; i++) {
+		        let nextItem = array[i];
+		        console.log("nextItem: ", nextItem);
+		    }
+
+			  // == backwards (array end to beginning)
+		    for (let i = (loopArray.length - 1); i > -1; i--) {
+		        let nextItem = array[i];
+		        console.log("nextItem: ", nextItem);
+		    }
+		}
+		forLoopFunction(loopArray);
+
+
+======= ======= ======= events ======= ======= =======
+• a few of the many types of events that can be listened for on a web page
+	- change
+	- keypress
+	- keydown
+	- keyup
+	- load
+	- mouseover
+	- mouseout
+
+• listener on multiple objects (e.g. menuItems): best to assign to the parent object
+	- event properties needed: 	target, currentTarget...
+	- e: 						passed event object (from parent click)
+	- .id: 						gets the id of the clicked element
+
+
+	-- html --
+    <main id="main" class="subSection">My ID is "main"!</main>
+    <div>
+      <p>Input Text</p>
+       <input id="charInput" />
+    </div>
+
+	<div id="menu">
+		<div class="menuItem">Home</div>
+		<div class="menuItem">Resume</div>
+		<div class="menuItem">Portfolio</div>
+	</div>
+
+	-- javascript --
+    const main = document.getElementById('main');
+    const input = document.querySelector('input');
+    const preventDefault = document.getElementById('preventDefault');
+    const clickDivs = document.querySelectorAll('div#container div');
+
+    // ======= parent (menu) =======
+    const menu = document.getElementById("menu");
+    menu.addEventListener('click', respondToClick);
+
+    // ======= child (menuItem) =======
+    function respondToClick(e) {
+      console.log("\n-- respondToClick --");
+      console.log("  target:", e.target.id);
+      console.log("  currentTarget:", e.currentTarget.id);
+    }
+
+
+    // ======= click => alert =======
+    main.addEventListener('click', function(e) {
+      alert('I was clicked!');
+    })
+
+
+    // ======= js hover =======
+    main.addEventListener('mouseenter', function(e) {
+      console.log("-- mouseenter --");
+      main.style.background = "red";
+      main.style.color = "white";
+   })
+
+    main.addEventListener('mouseleave', function(e) {
+      console.log("-- mouseleave --");
+      main.style.background = "#ccc";
+      main.style.color = "black";
+    })
+
+
+    // ======= keys =======
+    input.addEventListener('keydown', function(e) {
+      console.log("-- keydown --");
+	    let keyNumber = e.which;
+
+      // == filter for "g" key
+      if (keyNumber === 71) {
+	    console.log("'g' key");
+        return e.preventDefault()
+      }
+    })
+
+    input.addEventListener('keyup', e => {
+      console.log("-- keyup --");
+      console.log("e.which", e.which)
+    })
+
+
+    // ======= preventDefault =======
+    preventDefault.addEventListener('click', function(e) {
+      console.log("-- click --");
+      e.preventDefault();
+    })
+
+
+======= ======= ======= asynchonous javascript ======= ======= =======
+
+== success handling ==
+
+  - example 1: (single line)
+
+    fetch('http://api.open-notify.org/astros.json')
+      .then(response => response.json())
+      .then(json => document.write(`Holy cow! There are ${json["number"]} humans in space.`));
+
+  - example 2: (three lines for better readbility)
+
+    fetch('http://api.open-notify.org/astros.json')
+      .then(response => {
+        return response.json()
+      })
+      .then(json => {
+        return document.write(`Holy cow! There are ${json["number"]} humans in space.`)
+      });
+
+
+== error handling ==
+
+  - example 1:
+
+    fetch("http://api.open-notify.zrg/astros.json")
+      .then( resp => console.log("Yay"))
+      .catch( error => console.error(`Oh no! ${error}`));
+
+
+  - example 1 (expanded console.log feedback):
+  - NOTE: use of return is required for multiline arrow functions
+
+    fetch("http://api.open-notify.zrg/astros.json")
+      .then( resp => {
+        console.log("== then ==");
+        console.log("Yay")
+      })
+      .catch( error => {
+        console.log("== catch ==");
+        console.error(`Oh no! ${error}`)
+      });
+
+
+  - example 2:
+
+    fetch("http://api.open-notify.org/astros.json")
+      .then( (resp) => {
+        console.log("== then1 ==");
+        return resp.json()
+      })
+      .catch( error => {
+        console.log("== catch1 ==");
+        console.error(`Oh no! ${error}`)
+      })
+      .then( json => {
+        console.log("== then2 ==");
+        console.log(json);
+        return json
+      } )
+      .catch( error => {
+        console.log("== catch2 ==");
+        console.error(`Ruh-roh! Couldn't convert the json: ${error}`)
+      })
+
+
+  - example 3 (call another callback to parse data):
+
+    function printAstroNames(people) {
+        console.log("== printAstroNames ==");
+        for (i = 0; i < people.length; i++) {
+          console.log("people[i].name:", people[i].name);
+        }
+    }
+
+    fetch("http://api.open-notify.org/astros.json")
+      .then( (resp) => {
+        console.log("== then1 ==");
+        return resp.json()
+      })
+      .catch( error => {
+        console.log("== catch1 ==");
+        console.error(`Oh no! ${error}`)
+      })
+      .then( json => {
+        console.log("== then2 ==");
+        console.log(json);
+        return json
+      } )
+      .catch( error => {
+        console.log("== catch2 ==");
+        console.error(`Ruh-roh! Couldn't convert the json: ${error}`)
+      })
+      .then( json => {
+        console.log("== then3 ==");
+        console.log("json.people", json.people);
+        printAstroNames(json.people);
+      } )
+
+
+======= ======= ======= stay tuned... ======= ======= =======
+
+
+======= ======= ======= stay tuned... ======= ======= =======
+
+
+======= ======= ======= stay tuned... ======= ======= =======
+
+
+======= ======= ======= stay tuned... ======= ======= =======
+
+
+
+
+
+
+
+
+// =======
