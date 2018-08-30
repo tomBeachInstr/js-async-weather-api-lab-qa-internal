@@ -26,12 +26,11 @@ function fetchCurrentWeather(city) {
       .catch( error => {
         console.log("== catch1 ==");
         console.error(`Oh no! ${error}`);
-        console.error("Oh no! ", error);
       })
-      .then( json => {
+      .then( weatherJson => {
         console.log("== then2 ==");
-        console.log(json);
-        return json
+        console.log("weatherJson:", weatherJson);
+        return weatherJson
       } )
       .catch( error => {
         console.log("== catch2 ==");
