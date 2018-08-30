@@ -47,6 +47,7 @@ function displayCurrentWeather(weatherJson) {
     console.log("weatherJson:", weatherJson);
     console.log("weatherJson.name:", weatherJson.name);
     console.log("weatherJson.main:", weatherJson.main);
+    console.log("weatherJson.main.temp:", weatherJson.main.temp);
 }
 
 function fetchFiveDayForecast(city) {
