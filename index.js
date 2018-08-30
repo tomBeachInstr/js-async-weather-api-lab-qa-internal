@@ -11,6 +11,34 @@ function handleFormSubmit(event) {
 function fetchCurrentWeather(city) {
     console.log("== fetchCurrentWeather ==")
     console.log("city:", city);
+
+    // ======= get weather data by city name =======
+  	let weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=";
+
+    fetch()
+      .then( (resp) => {
+        console.log("== then1 ==");
+        return resp.json()
+      })
+      .catch( error => {
+        console.log("== catch1 ==");
+        console.error(`Oh no! ${error}`)
+      })
+      .then( json => {
+        console.log("== then2 ==");
+        console.log(json);
+        return json
+      } )
+      .catch( error => {
+        console.log("== catch2 ==");
+        console.error(`Ruh-roh! Couldn't convert the json: ${error}`)
+      })
+      .then( json => {
+        console.log("== then3 ==");
+        console.log("json.people", json.people);
+        printAstroNames(json.people);
+      } )
+
 }
 
 function displayCurrentWeather(json) {
