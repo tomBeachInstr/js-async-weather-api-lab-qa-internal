@@ -19,13 +19,14 @@ function fetchCurrentWeather(city) {
     console.log("weatherUrl:", weatherUrl);
 
     fetch(weatherUrl)
-      .then( (resp) => {
+      .then( (weatherData) => {
         console.log("== then1 ==");
-        return resp.json()
+        return weatherData.json()
       })
       .catch( error => {
         console.log("== catch1 ==");
-        console.error(`Oh no! ${error}`)
+        console.error(`Oh no! ${error}`);
+        console.error("Oh no! ", error);
       })
       .then( json => {
         console.log("== then2 ==");
