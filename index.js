@@ -18,7 +18,7 @@ function fetchCurrentWeather(city) {
     weatherUrl += API_KEY;
     console.log("weatherUrl:", weatherUrl);
 
-    fetch()
+    fetch(weatherUrl)
       .then( (resp) => {
         console.log("== then1 ==");
         return resp.json()
