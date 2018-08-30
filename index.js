@@ -38,8 +38,6 @@ function fetchCurrentWeather(city) {
       })
       .then( json => {
         console.log("== then3 ==");
-        console.log("json.people", json.people);
-        printAstroNames(json.people);
       } )
 
 }
