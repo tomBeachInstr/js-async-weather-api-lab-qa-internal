@@ -31,7 +31,8 @@ function createChart(json) {
 
 document.addEventListener('DOMContentLoaded', function() {
   console.log("-- DOMContentLoaded --")
-  document.getElementById("submitBtn").addEventListener("click", handleFormSubmit)
+  document.getElementById("submitBtn").addEventListener("click", handleFormSubmit);
+  console.log("document.getElementById('submitBtn'):", document.getElementById("submitBtn"));
 })
 
 
