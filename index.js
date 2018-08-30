@@ -29,22 +29,22 @@ function fetchCurrentWeather(city) {
       })
       .then( weatherJson => {
         console.log("== then2 ==");
-        console.log("weatherJson:", weatherJson);
         return weatherJson
       } )
       .catch( error => {
         console.log("== catch2 ==");
         console.error(`Ruh-roh! Couldn't convert the json: ${error}`)
       })
-      .then( json => {
+      .then( weatherJson => {
         console.log("== then3 ==");
-      } )
-
+        displayCurrentWeather(weatherJson);
+      })
 }
 
 function displayCurrentWeather(json) {
     console.log("== displayCurrentWeather ==")
     //render current weather data to the DOM using provided IDs and json from API
+    console.log("weatherJson:", weatherJson);
 }
 
 function fetchFiveDayForecast(city) {
